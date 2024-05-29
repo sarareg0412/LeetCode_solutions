@@ -3,11 +3,10 @@ class Solution:
         queue = []
 
         count = 0
-        s = sorted(s)
-        
+
         for c in s:
             if c in queue:
-                queue.pop(-1)
+                queue.remove(c)
                 count += 2
             else:
                 queue.append(c)

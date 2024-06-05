@@ -7,10 +7,11 @@ class Solution:
         while right < len(s):
             c = s[right]
             if c not in s[left:right]:
-                right += 1
+                right +=1
                 if len(s[left:right]) > max_len:
                     max_len = len(s[left:right])
             else:
-                left += 1
+                left +=1
 
         return max_len
+            

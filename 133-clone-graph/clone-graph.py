@@ -23,8 +23,6 @@ class Solution:
         visited[current] = new
         
         for el in current.neighbors:
-            neighbor = self.visit(el, visited)
-            if neighbor is not None:
-                new.neighbors.append(neighbor)
+            new.neighbors.append(self.visit(el, visited))
 
         return new

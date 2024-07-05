@@ -1,30 +1,28 @@
 class Solution:
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
         rows, cols = len(mat), len(mat[0])
-
-        output = [[float('inf')] *cols for _ in range(rows)]
-
-        neighbours = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-
+        output = [[float('inf')]*cols for _ in range(rows)]
         fifo = deque()
 
-        for i in range(rows):
-            for j in range(cols):
-                if mat[i][j] == 0:
-                    fifo.append((i, j))
-                    output[i][j] = 0
+        for r in range(rows):
+            for c in range(cols):
+                if mat[r][c] == 0:
+                    output[r][c] = 0
+                    fifo.append((r,c))
+
+        
+        neighbors = [(1,0), (-1, 0), (0, 1), (0, -1)]
 
         while fifo:
-            r, c = fifo.popleft()
+            curr_r, curr_c = fifo.popleft()
 
-            for nx, ny in neighbours:
-                r_n, c_n = r + nx, c + ny
+            for neigh_r, neigh_c in neighbors:
+                
+                neigh_r, neigh_c = neigh_r + curr_r, neigh_c + curr_c
+                distance = 1 + output[curr_r][curr_c]
 
-                if 0 <= r_n < rows and 0 <= c_n < cols:
-                    new_dist = 1 + output[r][c]
-
-                    if new_dist < output[r_n][c_n]:
-                        output[r_n][c_n] = new_dist
-                        fifo.append((r_n, c_n))
+                if 0 <= neigh_r < rows and 0 <= neigh_c < cols and (distance < output[neigh_r][neigh_c]):
+                    output[neigh_r][neigh_c] = distance
+                    fifo.append((neigh_r, neigh_c))
 
         return output
